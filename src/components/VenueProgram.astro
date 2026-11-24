@@ -1,0 +1,26 @@
+---
+import { marked } from "marked";
+import { prefixProgramLinks } from "../lib/site-path";
+
+interface Props {
+  filename?: string;
+}
+
+const { filename } = Astro.props;
+const files = import.meta.glob<string>("../../contents/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+const raw = filename ? files[`../../contents/${filename}`] : undefined;
+const program = raw?.trim() ? prefixProgramLinks(await marked.parse(raw)) : "";
+---
+
+{
+  program && (
+    <section class="program-card">
+      <h2>Programma e informazioni</h2>
+      <div class="program-content" set:html={program} />
+    </section>
+  )
+}

@@ -1,9 +1,9 @@
 ---
-import { sitePath, prefixProgramLinks } from "../../../../lib/site-path";
+import { sitePath } from "../../../../lib/site-path";
 import Layout from "../../../../layouts/Layout.astro";
 import VideoPlayer from "../../../../components/VideoPlayer.astro";
 import configData from "../../../../../config.json";
-import { marked } from "marked";
+import VenueProgram from "../../../../components/VenueProgram.astro";
 export function getStaticPaths() {
   return configData.groups.flatMap((g) =>
     g.links.map((l) => ({ params: { slug: g.slug, link: l.slug } })),
@@ -12,15 +12,6 @@ export function getStaticPaths() {
 const { slug, link } = Astro.params;
 const live = configData.groups.find((g) => g.slug === slug)!;
 const data = live.links.find((l) => l.slug === link)!;
-const files = import.meta.glob("../../../../../contents/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-});
-const program = files[`../../../../../contents/${live.programma}`];
-const programmaContentHtml = program
-  ? await marked.parse(program as string)
-  : "";
 ---
 
 <Layout
@@ -60,16 +51,8 @@ const programmaContentHtml = program
             }
           </nav>
         </aside>
-      </div>{
-        programmaContentHtml && (
-          <div class="program-card">
-            <>
-              <h2>Programma e informazioni</h2>
-              <div class="program-content" set:html={prefixProgramLinks(programmaContentHtml)} />
-            </>
-          </div>
-        )
-      }
+      </div>
+      <VenueProgram filename={live.programma} />
     </div>
   </main></Layout
 >

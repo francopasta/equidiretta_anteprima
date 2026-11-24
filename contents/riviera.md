@@ -1,73 +1,34 @@
-<p class="mb-4 text-gray-800">
-  Live streaming eventi equestri da Horses Riviera Resort a San Giovanni in
-  Marignano (RN). Segui le gare in diretta e il programma completo.
-</p>
-<div class="grid grid-cols-2 gap-2">
-<div>
+<p class="program-intro">Live streaming eventi equestri da Horses Riviera Resort a San Giovanni in Marignano (RN). Segui le gare in diretta e il programma completo.</p>
 
-<div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-8 my-8 shadow-lg border border-orange-200 text-center">
-  <h3 class="text-3xl font-bold text-orange-800 mb-4">Prossimi eventi</h3>
-  <p class="text-2xl font-semibold text-gray-900 mb-2"> 20-22 Novembre</p>
-  <p class="text-xl text-gray-800 italic mb-8">
-     A2*
-  </p>
-
-   <div class="mt-3">
-    <a href="/programma-riviera.pdf" class="inline-block bg-custom-1 hover:bg-custom-2 text-white font-bold text-lg py-3 px-6 rounded-xl shadow-md transition px-3">
-      Scarica Programma Evento
-    </a>
-  </div>
-
-  <div class="bg-white rounded-xl p-6 shadow-md inline-block">
-    <h4 class="text-2xl font-bold text-orange-700 mb-6">Acquista lo streaming di tutti i campi del concorso di Horses Riviera Resort direttamente dalla finestra dello streaming <u>(sono esclusi i concorsi di dressage )</u></h4>
-    <ul class="text-lg space-y-4 text-gray-700">
-    <li class="flex justify-between max-w-xs mx-auto">
-        <span class="font-medium">Accesso per 1 Ora</span>
-        <span class="text-orange-600 font-bold text-xl">6€</span>
-      </li>
-      <li class="flex justify-between max-w-xs mx-auto">
-        <span class="font-medium">Accesso per 1 Giorno</span>
-        <span class="text-orange-600 font-bold text-xl">15€</span>
-      </li>
-      <li class="flex justify-between max-w-xs mx-auto">
-        <span class="font-medium">Accesso per 3 Giorni</span>
-        <span class="text-orange-600 font-bold text-xl">40€</span>
-      </li>
+<div class="program-grid">
+<section class="program-panel" lang="it">
+  <h3>Programma evento</h3>
+  <p class="program-date">20-22 Novembre</p>
+  <p class="program-category">A2*</p>
+  <a class="program-download" href="/programma-riviera.pdf">Scarica il programma (PDF)</a>
+  <div class="program-streaming">
+    <h4>Accesso allo streaming</h4>
+    <p>Acquista lo streaming di tutti i campi del concorso di Horses Riviera Resort direttamente dalla finestra dello streaming (sono esclusi i concorsi di dressage )</p>
+    <ul class="program-prices">
+      <li><span>Accesso per 1 Ora</span><strong>6€</strong></li>
+      <li><span>Accesso per 1 Giorno</span><strong>15€</strong></li>
+      <li><span>Accesso per 3 Giorni</span><strong>40€</strong></li>
     </ul>
   </div>
-</div>
-</div>
-<div>
-
-<div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-8 my-8 shadow-lg border border-orange-200 text-center">
-  <h3 class="text-3xl font-bold text-orange-800 mb-4">Upcoming events</h3>
-  <p class="text-2xl font-semibold text-gray-900 mb-2">  November 20-22 2026</p>
-  <p class="text-xl text-gray-800 italic mb-8">
-     A2*
-  </p>
-
-   <div class="mt-3">
-    <a href="/programma-riviera.pdf" class="inline-block bg-custom-1 hover:bg-custom-2 text-white font-bold text-lg py-3 px-6 rounded-xl shadow-md transition px-3">
-      Download Event Program
-    </a>
-  </div>
-
-  <div class="bg-white rounded-xl p-6 shadow-md inline-block">
-    <h4 class="text-2xl font-bold text-orange-700 mb-6">Purchase streaming for all fields of Horses Riviera Resort's event directly in the streaming window <u>(dressage events not included)</u></h4>
-    <ul class="text-lg space-y-4 text-gray-700">
-    <li class="flex justify-between max-w-xs mx-auto">
-        <span class="font-medium">1 Hour Access</span>
-        <span class="text-orange-600 font-bold text-xl">6€</span>
-      </li>
-      <li class="flex justify-between max-w-xs mx-auto">
-        <span class="font-medium">1 Day Access</span>
-        <span class="text-orange-600 font-bold text-xl">15€</span>
-      </li>
-      <li class="flex justify-between max-w-xs mx-auto">
-        <span class="font-medium">3 Days Access</span>
-        <span class="text-orange-600 font-bold text-xl">S0€</span>
-      </li>
+</section>
+<section class="program-panel" lang="en">
+  <h3>Event programme</h3>
+  <p class="program-date">November 20-22 2026</p>
+  <p class="program-category">A2*</p>
+  <a class="program-download" href="/programma-riviera.pdf">Download the programme (PDF)</a>
+  <div class="program-streaming">
+    <h4>Streaming access</h4>
+    <p>Purchase streaming for all fields of Horses Riviera Resort&#x27;s event directly in the streaming window (dressage events not included)</p>
+    <ul class="program-prices">
+      <li><span>1 Hour Access</span><strong>6€</strong></li>
+      <li><span>1 Day Access</span><strong>15€</strong></li>
+      <li><span>3 Days Access</span><strong>S0€</strong></li>
     </ul>
   </div>
-</div>
+</section>
 </div>

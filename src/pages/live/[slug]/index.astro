@@ -1,23 +1,14 @@
 ---
-import { sitePath, prefixProgramLinks } from "../../../lib/site-path";
+import { sitePath } from "../../../lib/site-path";
+import { hasFeaturedLogo } from "../../../lib/venue-logos";
 import Layout from "../../../layouts/Layout.astro";
 import configData from "../../../../config.json";
-import { marked } from "marked";
+import VenueProgram from "../../../components/VenueProgram.astro";
 export function getStaticPaths() {
   return configData.groups.map((g) => ({ params: { slug: g.slug } }));
 }
 const { slug } = Astro.params;
 const res = configData.groups.find((g) => g.slug === slug)!;
-const files = import.meta.glob("../../../../contents/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-});
-const content = files[`../../../../contents/${res.programma}`];
-const programmaContentHtml = content
-  ? await marked.parse(content as string)
-  : "";
-
 ---
 
 <Layout
@@ -27,13 +18,24 @@ const programmaContentHtml = content
   <main class="detail-page">
     <section class="detail-banner">
       <div class="content-shell detail-banner-inner">
-        <a class="breadcrumb" href={sitePath("/#centri")}>← Tutti i centri ippici</a><p
-          class="eyebrow"
+        <div>
+          <a class="breadcrumb" href={sitePath("/#centri")}>← Torna alle dirette</a>
+          <p class="eyebrow">CENTRO IPPICO · STREAMING</p>
+          <h1>{res.title}</h1>
+          <p class="detail-location">⌖ {res.location}</p>
+        </div>
+        <div
+          class:list={[
+            "detail-banner__crest",
+            { "detail-banner__crest--large": hasFeaturedLogo(res.slug) },
+          ]}
+          aria-hidden="true"
         >
-          CENTRO IPPICO · STREAMING
-        </p><h1>{res.title}</h1><p class="detail-location">⌖ {res.location}</p>
-      </div><div class="detail-banner__crest" aria-hidden="true"><img src={sitePath(`/images/${res.image}`)} alt="" /></div>
-    </section><section class="content-shell detail-content">
+          <img src={sitePath(`/images/${res.image}`)} alt="" />
+        </div>
+      </div>
+    </section>
+    <section class="content-shell detail-content">
       <div class="detail-intro">
         <div>
           <span class="small-rule"></span><h2>Scegli la tua arena</h2><p>
@@ -63,16 +65,9 @@ const programmaContentHtml = content
             </a>
           ))
         }
-      </div>{
-        programmaContentHtml && (
-          <div class="program-card">
-            <>
-              <h2>Programma e informazioni</h2>
-              <div class="program-content" set:html={prefixProgramLinks(programmaContentHtml)} />
-            </>
-          </div>
-        )
-      }{
+      </div>
+      <VenueProgram filename={res.programma} />
+      {
         res.imageProgramma && (
           <img
             class="program-image"

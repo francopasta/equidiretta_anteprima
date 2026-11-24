@@ -1,5 +1,6 @@
 ---
 import { sitePath } from "../lib/site-path";
+import { hasFeaturedLogo } from "../lib/venue-logos";
 import Layout from "../layouts/Layout.astro";
 import configData from "../../config.json";
 export const prerender = true;
@@ -26,10 +27,9 @@ const pageDescription = `Segui le gare di equitazione e scopri le arene in strea
           gara, sempre a portata di clic.
         </p>
         <div class="hero-buttons">
-          <a class="button button-gold" href="#dirette"
-            ><span aria-hidden="true">▶</span> Scopri le dirette</a
-          ><a class="button button-outline" href="#centri"
-            >⌖ &nbsp;Esplora i centri</a>
+          <a class="button button-gold" href="#dirette">
+            <span aria-hidden="true">▶</span> Scopri le dirette
+          </a>
         </div>
       </div>
     </section>
@@ -52,7 +52,10 @@ const pageDescription = `Segui le gare di equitazione e scopri le arene in strea
               <article class="venue-card">
                 <>
                   <a
-                    class="venue-card__photo"
+                    class:list={[
+                      "venue-card__photo",
+                      { "venue-card__photo--large": hasFeaturedLogo(g.slug) },
+                    ]}
                     href={sitePath(`/live/${g.slug}/`)}
                     aria-label={`Apri ${g.title}`}
                   >
