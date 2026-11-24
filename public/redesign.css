@@ -1,0 +1,1148 @@
+:root {
+  --navy: #0e2030;
+  --navy2: #142a3d;
+  --gold: #d9b46f;
+  --gold2: #f1d58f;
+  --cream: #f8f5f0;
+  --ink: #17202a;
+  --muted: #677078;
+}
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-family: Arial, Helvetica, sans-serif;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+h1,
+h2,
+h3 {
+  letter-spacing: -0.035em;
+}
+.content-shell {
+  width: min(1200px, calc(100% - 64px));
+  margin-inline: auto;
+}
+.site-nav {
+  background: #0c1b2b;
+  color: #fff;
+  position: relative;
+  z-index: 30;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+.site-nav__inner {
+  min-height: 76px;
+  max-width: 1390px;
+  margin: auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 8px;
+  color: #fff;
+  font-family: Georgia, serif;
+  font-weight: bold;
+  font-size: clamp(17px, 2.1vw, 29px);
+  letter-spacing: -0.045em;
+}
+.brand-mark {
+  color: var(--gold2);
+  width: 43px;
+  height: 43px;
+}
+.brand-dot,
+.footer-brand span {
+  color: var(--gold2);
+}
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(17px, 2.5vw, 38px);
+  margin: auto;
+}
+.site-nav__links a {
+  color: #f5f6f7;
+  font-size: 14px;
+  font-weight: 650;
+  transition: color 0.2s;
+}
+.site-nav__links a:hover,
+.footer-links a:hover {
+  color: var(--gold2);
+}
+.nav-cta,
+.button-gold {
+  background: linear-gradient(180deg, #f3d993, #bf9550);
+  color: #122131 !important;
+  border: 1px solid #e7c37a;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  font-weight: 750;
+}
+.nav-cta {
+  padding: 13px 20px;
+  border-radius: 10px;
+  white-space: nowrap;
+  font-size: 14px;
+}
+.nav-cta span {
+  margin-right: 9px;
+}
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 0;
+  padding: 12px;
+}
+.menu-toggle span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: white;
+  margin: 5px 0;
+}
+.hero {
+  height: clamp(500px, 42vw, 610px);
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: white;
+  margin: 0;
+}
+.hero-art {
+  position: absolute;
+  inset: 0 0 0 38%;
+  background: url("images/hero-equestrian.jpg") center 37% / cover no-repeat;
+  filter: saturate(0.95);
+}
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      #0c1c2c 0%,
+      #0d1d2ce8 22%,
+      #0c1c2c9a 47%,
+      #0c1c2c05 78%
+    ),
+    linear-gradient(0deg, #0b1c2a66, transparent 27%);
+}
+.hero-content {
+  z-index: 2;
+  position: relative;
+  padding: 28px 0;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  font-weight: 750;
+  color: #b99155;
+}
+.hero-eyebrow {
+  color: var(--gold2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 23px;
+}
+.eyebrow-line,
+.small-rule {
+  height: 2px;
+  width: 50px;
+  background: var(--gold);
+  display: block;
+}
+.hero h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(51px, 5.3vw, 78px);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 22px;
+  letter-spacing: -0.05em;
+  max-width: 700px;
+}
+.hero h1 em {
+  color: var(--gold2);
+  font-weight: 500;
+}
+.gold-stroke {
+  height: 3px;
+  background: var(--gold2);
+  width: 72px;
+  margin: 24px 0 14px;
+}
+.hero-content > p {
+  font-size: clamp(17px, 1.7vw, 23px);
+  line-height: 1.5;
+  max-width: 570px;
+  color: #edf0f3;
+  margin-bottom: 32px;
+}
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.button {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  padding: 13px 25px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.button:hover,
+.nav-cta:hover {
+  transform: translateY(-2px);
+}
+.button-outline {
+  border: 1.5px solid #fff;
+  color: white;
+  background: #12263955;
+}
+.button-outline:hover {
+  background: #ffffff1b;
+}
+.venues-section {
+  background: var(--cream);
+  padding: 75px 0 86px;
+  margin: 0;
+}
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.section-heading .small-rule {
+  margin-bottom: 16px;
+}
+.section-heading .eyebrow {
+  margin-bottom: 12px;
+}
+.section-heading h2,
+.benefits-title h2,
+.detail-intro h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 3.2vw, 48px);
+  line-height: 1.16;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.section-subtitle {
+  color: #62686e;
+  font-size: 17px;
+  margin-bottom: 0;
+}
+.venue-count {
+  font-size: 11px;
+  color: #6d6250;
+  background: #efe5d3;
+  border: 1px solid #e9dbbf;
+  border-radius: 99px;
+  padding: 10px 14px;
+  white-space: nowrap;
+  font-weight: bold;
+  letter-spacing: 0.11em;
+}
+.venue-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.venue-card {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #eae5dd;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px #29354213;
+  transition:
+    transform 0.22s,
+    box-shadow 0.22s;
+  display: flex;
+  flex-direction: column;
+}
+.venue-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 34px #29354224;
+}
+.venue-card__photo {
+  height: 170px;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--navy);
+}
+.venue-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s;
+}
+.venue-card:hover img {
+  transform: scale(1.04);
+}
+.venue-card__pill {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  background: #102639e8;
+  color: #fff;
+  border: 1px solid #ffffff5e;
+  border-radius: 6px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  padding: 7px 10px;
+}
+.venue-card__body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.venue-card h3 {
+  font-family: Georgia, serif;
+  font-size: 21px;
+  line-height: 1.16;
+  margin: 0 0 11px;
+  min-height: 48px;
+}
+.venue-card h3 a:hover {
+  color: #a47a37;
+}
+.venue-location {
+  font-size: 12px;
+  color: #666e73;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 21px;
+}
+.venue-location span {
+  color: #aa803c;
+  font-size: 20px;
+}
+.venue-card__button {
+  margin-top: auto;
+  min-height: 41px;
+  border: 1px solid #b99a69;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #172434;
+  font-size: 13px;
+  font-weight: 750;
+  background: linear-gradient(#fff, #fbf6ed);
+  transition: background 0.2s;
+}
+.venue-card__button:hover {
+  background: #f0dcae;
+}
+.venue-card__button span:last-child {
+  margin-left: auto;
+  padding-right: 10px;
+  color: #94713d;
+}
+.venue-card__button span:first-child {
+  margin-left: auto;
+  font-size: 11px;
+}
+.benefits {
+  background: linear-gradient(115deg, #0d1d2e, #18354e);
+  color: #fff;
+  margin: 0;
+  padding: 58px 0 64px;
+}
+.benefits-inner {
+  display: grid;
+  grid-template-columns: 1.8fr repeat(3, 1fr);
+  gap: 36px;
+  align-items: center;
+}
+.benefits-title {
+  padding-right: 35px;
+  border-right: 1px solid #dcb76b75;
+}
+.benefits-title .small-rule {
+  margin-bottom: 19px;
+}
+.benefits-title h2 {
+  font-size: clamp(28px, 2.6vw, 39px);
+  margin-bottom: 10px;
+}
+.benefits-title p,
+.benefit p {
+  color: #c5ced8;
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 0;
+}
+.benefit-icon {
+  font-size: 31px;
+  color: #ebc878;
+  display: block;
+  margin-bottom: 13px;
+}
+.benefit h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.site-footer {
+  background: #091724;
+  color: #eee;
+  padding: 36px 0;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+.footer-brand {
+  font:
+    bold 21px Georgia,
+    serif;
+}
+.footer-inner p {
+  font-size: 12px;
+  color: #a6b1bb;
+  margin: 10px 0 0;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 13px;
+  color: #d4dce4;
+}
+.footer-inner small {
+  color: #929faa;
+  white-space: nowrap;
+}
+.detail-banner {
+  height: 310px;
+  background: var(--navy);
+  position: relative;
+  color: white;
+  overflow: hidden;
+  margin: 0;
+}
+.detail-banner img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 48%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  mask-image: linear-gradient(90deg, transparent, #000 45%);
+}
+.detail-banner-inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 44px;
+}
+.breadcrumb {
+  display: inline-block;
+  color: #e7c887;
+  font-size: 13px;
+  margin-bottom: 32px;
+}
+.detail-banner .eyebrow,
+.player-header .eyebrow {
+  color: var(--gold2);
+  margin-bottom: 12px;
+}
+.detail-banner h1,
+.player-header h1 {
+  font:
+    700 clamp(38px, 4.2vw, 62px)/1.1 Georgia,
+    serif;
+  margin-bottom: 12px;
+}
+.detail-location {
+  font-size: 16px;
+  color: #d9e0e5;
+}
+.detail-content {
+  padding-top: 55px;
+  padding-bottom: 80px;
+}
+.detail-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.detail-intro .small-rule {
+  margin-bottom: 16px;
+}
+.detail-intro p {
+  color: var(--muted);
+}
+.arena-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+  margin: 20px 0 55px;
+}
+.arena-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 21px;
+  border: 1px solid #e8dfd1;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px #172b3710;
+  transition: transform 0.2s;
+}
+.arena-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+}
+.arena-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  color: #102335;
+  border-radius: 10px;
+  background: #eed6a3;
+}
+.arena-card strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+.arena-card small {
+  font-size: 11px;
+  color: #78818a;
+}
+.arena-arrow {
+  margin-left: auto;
+  color: #a9834e;
+}
+.program-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e8dfd1;
+  padding: 32px;
+  margin-top: 30px;
+  box-shadow: 0 6px 26px #19283a0b;
+}
+.program-card h2 {
+  font:
+    700 28px Georgia,
+    serif;
+  margin-bottom: 24px;
+}
+.program-content {
+  line-height: 1.75;
+  color: #343e48;
+  overflow-wrap: anywhere;
+}
+.program-content a {
+  color: #916b2c;
+  text-decoration: underline;
+}
+.program-content img {
+  max-width: 100%;
+  height: auto;
+}
+.program-image {
+  max-width: 100%;
+  margin: 30px auto;
+}
+.player-page {
+  background: var(--cream);
+  padding: 43px 0 90px;
+  min-height: 65vh;
+}
+.player-header p {
+  color: #626a70;
+}
+.player-header h1 {
+  color: #172535;
+}
+.player-header .breadcrumb {
+  color: #9c762f;
+}
+.player-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 22px;
+  margin: 25px 0 30px;
+}
+.video-frame {
+  background: #07131e;
+  border: 7px solid #0f2233;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 25px #15213022;
+}
+.responsive-player {
+  aspect-ratio: 16/9;
+  width: 100%;
+}
+.responsive-player iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.stream-unavailable {
+  aspect-ratio: 16/9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 18px;
+}
+.stream-unavailable > span {
+  font-size: 42px;
+  color: var(--gold);
+}
+.stream-unavailable h3 {
+  font:
+    700 25px Georgia,
+    serif;
+  margin: 12px 0 4px;
+}
+.stream-unavailable p {
+  color: #ced5db;
+}
+.stream-note {
+  font-size: 12px;
+  color: #6c7479;
+  margin-top: 13px;
+}
+.arena-sidebar {
+  padding: 24px;
+  background: white;
+  border: 1px solid #e8dfd1;
+  border-radius: 12px;
+  align-self: start;
+}
+.arena-sidebar h2 {
+  font:
+    700 22px Georgia,
+    serif;
+  margin: 0 0 20px;
+}
+.arena-sidebar nav {
+  display: grid;
+  gap: 9px;
+}
+.arena-side-link {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 12px 13px;
+  border-radius: 8px;
+  background: #f5f3ee;
+  font-size: 13px;
+  font-weight: bold;
+}
+.arena-side-link.is-active {
+  background: #142c40;
+  color: white;
+}
+.arena-side-link span {
+  color: #be984f;
+}
+.cookie-banner {
+  position: fixed;
+  z-index: 200;
+  right: 20px;
+  bottom: 20px;
+  background: #fff;
+  max-width: 430px;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 10px 45px #0003;
+  border: 1px solid #ddd;
+  font-size: 13px;
+}
+.cookie-banner.hidden {
+  display: none;
+}
+.cookie-banner a {
+  color: #8e6826;
+  text-decoration: underline;
+}
+.cookie-banner button {
+  padding: 9px 20px;
+  margin: 8px 8px 0 0;
+  border: 1px solid #b89a64;
+  border-radius: 7px;
+  background: #efd392;
+}
+.cookie-banner button + button {
+  background: white;
+}
+main:not(.detail-page):not(.player-page)
+  > section:not(.hero):not(.venues-section):not(.benefits) {
+  max-width: 1150px;
+  margin: auto;
+}
+body > main:not(:has(.hero)):not(.detail-page):not(.player-page) {
+  padding: 40px max(24px, calc((100vw - 1150px) / 2));
+  min-height: 55vh;
+  background: var(--cream);
+}
+@media (max-width: 1100px) {
+  .site-nav__inner {
+    gap: 15px;
+  }
+  .site-nav__links {
+    gap: 16px;
+  }
+  .venue-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .venue-card__photo {
+    height: 210px;
+  }
+  .benefits-inner {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .benefits-title {
+    grid-column: 1/-1;
+    border-right: 0;
+    border-bottom: 1px solid #dcb76b75;
+    padding: 0 0 24px;
+  }
+  .arena-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 760px) {
+  .content-shell {
+    width: min(100% - 36px, 620px);
+  }
+  .site-nav__inner {
+    min-height: 68px;
+    padding: 0 17px;
+  }
+  .brand {
+    font-size: 20px;
+  }
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+  }
+  .nav-cta {
+    margin-left: auto;
+    font-size: 0;
+    padding: 10px 12px;
+  }
+  .nav-cta span {
+    font-size: 14px;
+    margin: 0;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  .site-nav__links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 14px 22px 23px;
+    background: #0e2132;
+    box-shadow: 0 12px 30px #0003;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+  }
+  .site-nav__links.is-open {
+    display: flex;
+  }
+  .site-nav__links a {
+    padding: 13px;
+    border-bottom: 1px solid #ffffff18;
+  }
+  .hero {
+    height: auto;
+    min-height: 610px;
+    align-items: flex-end;
+  }
+  .hero-art {
+    inset: 0 0 27% 0;
+    background-size: cover;
+    background-position: 52% 29%;
+    opacity: 0.72;
+  }
+  .hero-shade {
+    background: linear-gradient(
+      0deg,
+      #0b1c2b 4%,
+      #0b1c2bec 35%,
+      #0b1c2b66 73%,
+      #0b1c2b44
+    );
+  }
+  .hero-content {
+    padding: 180px 0 52px;
+  }
+  .hero h1 {
+    font-size: clamp(45px, 11vw, 65px);
+  }
+  .hero-content > p {
+    font-size: 16px;
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+  }
+  .hero-buttons {
+    gap: 10px;
+  }
+  .button {
+    font-size: 13px;
+    padding: 13px 16px;
+  }
+  .venues-section {
+    padding: 55px 0;
+  }
+  .venue-grid {
+    gap: 14px;
+  }
+  .venue-card__photo {
+    height: 155px;
+  }
+  .venue-card__body {
+    padding: 16px;
+  }
+  .venue-card h3 {
+    font-size: 19px;
+  }
+  .section-heading {
+    align-items: start;
+  }
+  .section-heading .venue-count {
+    display: none;
+  }
+  .section-heading h2 {
+    font-size: 34px;
+  }
+  .benefits {
+    padding: 45px 0;
+  }
+  .benefits-inner {
+    gap: 24px;
+  }
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links {
+    justify-content: center;
+  }
+  .detail-banner {
+    height: 280px;
+  }
+  .detail-banner img {
+    width: 80%;
+    opacity: 0.25;
+  }
+  .detail-content {
+    padding-top: 35px;
+  }
+  .player-layout {
+    grid-template-columns: 1fr;
+  }
+  .arena-sidebar {
+    order: -1;
+  }
+  .arena-sidebar nav {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .detail-intro {
+    align-items: start;
+  }
+}
+@media (max-width: 510px) {
+  .venue-grid {
+    grid-template-columns: 1fr;
+  }
+  .venue-card__photo {
+    height: 210px;
+  }
+  .venue-card h3 {
+    min-height: 0;
+  }
+  .venue-card__body {
+    padding: 19px;
+  }
+  .benefits-inner {
+    grid-template-columns: 1fr;
+  }
+  .benefits-title {
+    grid-column: auto;
+  }
+  .benefit {
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    column-gap: 13px;
+  }
+  .benefit-icon {
+    grid-row: span 2;
+    margin: 0;
+  }
+  .benefit h3 {
+    margin: 0 0 5px;
+  }
+  .arena-grid {
+    grid-template-columns: 1fr;
+  }
+  .detail-intro .venue-count {
+    display: none;
+  }
+  .arena-sidebar nav {
+    grid-template-columns: 1fr;
+  }
+  .program-card {
+    padding: 21px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("fonts/OpenSans.ttf") format("truetype");
+  font-weight: 300 800;
+  font-display: swap;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans", Arial, sans-serif;
+}
+
+body > main {
+  flex: 1;
+}
+
+:focus-visible {
+  outline: 2px solid #ae7b27;
+  outline-offset: 4px;
+}
+
+.brand-mark {
+  object-fit: contain;
+}
+
+.venue-card__photo {
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border-bottom: 1px solid #eee8dc;
+}
+
+.venue-card__photo img {
+  width: calc(100% - 48px);
+  height: 100%;
+  max-height: 132px;
+  padding: 10px;
+  object-fit: contain;
+}
+
+.venue-card__pill {
+  top: 10px;
+  left: 10px;
+  padding: 4px 7px;
+  font-size: 12px;
+}
+
+.detail-banner {
+  height: auto;
+  min-height: 280px;
+}
+
+.detail-banner-inner {
+  padding-bottom: 40px;
+  padding-right: min(25%, 300px);
+}
+
+.detail-banner__crest {
+  position: absolute;
+  top: 50%;
+  right: max(32px, calc((100% - 1200px) / 2));
+  transform: translateY(-50%);
+  width: clamp(126px, 22vw, 243px);
+  height: 145px;
+  border: 1px solid #d9b46f80;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.detail-banner .detail-banner__crest img {
+  position: static;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  object-fit: contain;
+  opacity: 1;
+  mask-image: none;
+}
+
+.cookie-banner[hidden] {
+  display: none;
+}
+
+.cookie-banner {
+  left: auto;
+  max-width: min(430px, calc(100% - 40px));
+}
+
+body > main.container,
+body > main.simple-page {
+  max-width: 960px;
+  padding: 52px 24px 72px;
+}
+
+body > main.container > :is(section, article) {
+  max-width: 100%;
+}
+
+body > main.container :is(h1, h2, h3),
+.simple-page h1 {
+  font-family: Georgia, serif;
+  color: var(--navy);
+  font-weight: 700;
+  margin-block-end: 0.65em;
+}
+
+body > main.container h1,
+.simple-page h1 {
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 1.12;
+}
+
+body > main.container h2 {
+  font-size: 1.6rem;
+}
+
+body > main.container h3 {
+  font-size: 1.26rem;
+}
+
+body > main.container p,
+.simple-page p {
+  margin-block-end: 1em;
+}
+
+body > main.container .link {
+  color: #75531f;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+body > main.container .listCard {
+  background: #fff;
+  border: 1px solid #e8dfd1;
+  border-radius: 14px;
+}
+
+body > main :is(.bg-custom-1, .button-gold) {
+  background: var(--gold2);
+  color: #152431;
+}
+
+body > main .bg-custom-1:hover {
+  background: var(--gold);
+}
+
+@media (max-width: 760px) {
+  .detail-banner-inner {
+    padding: 32px 0 20px;
+  }
+
+  .detail-banner__crest {
+    position: relative;
+    inset: auto;
+    transform: none;
+    margin: 0 max(18px, calc((100% - 620px) / 2)) 26px;
+    height: 74px;
+    width: 115px;
+  }
+
+  .detail-banner .detail-banner__crest img {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-nav__inner {
+    gap: 9px;
+    padding-inline: 11px;
+  }
+
+  .brand {
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .venue-card,
+  .venue-card__photo img {
+    transition: none;
+  }
+}

@@ -1,6 +1,6 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
+import { sitePath } from "../lib/site-path";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -8,53 +8,30 @@ interface Props {
   image?: string;
 }
 
-const canonicalPathname = Astro.url.pathname;
-const canonicalURL = new URL(canonicalPathname, Astro.site);
-
-const { title, description, image = "/images/default-og.jpg" } = Astro.props; // fallback immagine più generico se serve
-
-import { ClientRouter } from "astro:transitions";
+const { title, description, image = "/images/hero-equestrian.jpg" } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const imageURL = new URL(sitePath(image), Astro.site);
+const localPreview = import.meta.env.PUBLIC_EQUIDIRETTA_PRODUCTION !== "true";
 ---
 
-<!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-<link rel="manifest" href="/site.webmanifest" />
+<link rel="icon" type="image/png" href={sitePath("/images/ed-marchio.png")} />
 <meta name="generator" content={Astro.generator} />
-
-<link rel="sitemap" href="/sitemap-index.xml" />
-
-<!-- Font preloads -->
-<link rel="preload" href="/fonts/Raleway.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
-<link rel="preload" href="/fonts/Raleway-Italic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
-<link rel="preload" href="/fonts/OpenSans.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
-<link rel="preload" href="/fonts/OpenSans-Italic.ttf" as="font" type="font/ttf" crossorigin="anonymous" />
-
-<!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
-
-<!-- Primary Meta Tags -->
+<link rel="sitemap" href={sitePath("/sitemap-index.xml")} />
+{!localPreview && <link rel="canonical" href={canonicalURL} />}
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-<meta name="robots" content="index, follow" />
-
-<!-- Open Graph / Facebook -->
+<meta name="robots" content={localPreview ? "noindex, nofollow" : "index, follow"} />
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={imageURL} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
 
 <ClientRouter />

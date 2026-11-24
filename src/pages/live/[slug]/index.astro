@@ -1,92 +1,85 @@
 ---
+import { sitePath, prefixProgramLinks } from "../../../lib/site-path";
 import Layout from "../../../layouts/Layout.astro";
-import configData from "./../../../../config.json";
+import configData from "../../../../config.json";
 import { marked } from "marked";
-
 export function getStaticPaths() {
-  return configData.groups.map((g) => {
-    return {
-      params: {
-        slug: g.slug,
-      },
-    };
-  });
+  return configData.groups.map((g) => ({ params: { slug: g.slug } }));
 }
-
 const { slug } = Astro.params;
-const res = configData.groups.find((g) => g.slug === slug);
-if (!res) {
-  return Astro.redirect("/404");
-}
-const { title, location, programma, image, imageProgramma, links } = res;
-
-const files = import.meta.glob("./../../../../contents/*.md", {
-  as: "raw",
+const res = configData.groups.find((g) => g.slug === slug)!;
+const files = import.meta.glob("../../../../contents/*.md", {
+  query: "?raw",
+  import: "default",
   eager: true,
 });
+const content = files[`../../../../contents/${res.programma}`];
+const programmaContentHtml = content
+  ? await marked.parse(content as string)
+  : "";
 
-let programmaContentHtml = "";
-if (programma && programma.length > 3) {
-  const programmaContent = files[`../../../../contents/${programma}`];
-  programmaContentHtml = await marked.parse(programmaContent);
-}
-console.log("imageProgramma", imageProgramma);
 ---
 
 <Layout
-  title={`Live streaming ${res.title} - ${res.location} | ${configData.title}`}
-  description={`Live streaming eventi equestri da ${res.title} a ${res.location}. Guarda le dirette e il programma delle gare su ${configData.title}.`}
+  title={`Streaming ${res.title} | ${configData.title}`}
+  description={`Segui le arene e il programma gare di ${res.title} a ${res.location}.`}
 >
-  <main class="container mx-auto">
-    <section>
-      <h1 class="mb-3">
-        Live streaming {title} - {location}
-      </h1>
-      <p class="text-gray/80 max-w-3xl">
-        Live streaming eventi equestri dal centro ippico {title} di {location}.
-        Segui le arene disponibili e consulta il programma delle gare.
-      </p>
-      <div class="flex justify-center">
-        <a href={`/live/${slug}/`}>
-          <img src={`/images/${image}`} />
-        </a>
-      </div>
-      <hr class="mt-3" />
-      <div class="container mx-auto py-12">
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 max-w-7xl mx-auto"
+  <main class="detail-page">
+    <section class="detail-banner">
+      <div class="content-shell detail-banner-inner">
+        <a class="breadcrumb" href={sitePath("/#centri")}>← Tutti i centri ippici</a><p
+          class="eyebrow"
         >
-          {
-            links.map((link) => (
-              <div>
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
-                  <div class="p-6 flex flex-col items-center justify-between flex-1 text-center">
-                    <h3>
-                      <a href={link.slug}>{link.title}</a>
-                    </h3>
-                    <a
-                      href={`/live/${slug}/${link.slug}`}
-                      class="bg-custom-1 hover:bg-custom-2 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md"
-                    >
-                      {configData.actions.vedi}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-      {
-        programmaContentHtml && programmaContentHtml.length > 0 && (
-          <div set:html={programmaContentHtml} />
-        )
-      }
-      {
-        imageProgramma && imageProgramma.length > 0 && (
-          <div class="flex justify-center">
-            <img src={`/images/${imageProgramma}`} />
+          CENTRO IPPICO · STREAMING
+        </p><h1>{res.title}</h1><p class="detail-location">⌖ {res.location}</p>
+      </div><div class="detail-banner__crest" aria-hidden="true"><img src={sitePath(`/images/${res.image}`)} alt="" /></div>
+    </section><section class="content-shell detail-content">
+      <div class="detail-intro">
+        <div>
+          <span class="small-rule"></span><h2>Scegli la tua arena</h2><p>
+            Segui il live streaming degli eventi equestri di {res.title} a {res.location}. Scegli un’arena e consulta il programma delle gare.
+          </p>
+        </div><span class="venue-count"
+          >{res.links.length}
+          {res.links.length === 1 ? "ARENA" : "ARENE"}</span>
+      </div><div class="arena-grid">
+        {
+          res.links.map((l) => (
+            <a class="arena-card" href={sitePath(`/live/${res.slug}/${l.slug}/`)}>
+              <>
+                <span class="arena-icon">▶</span>
+                <span>
+                  <>
+                    <strong>{l.title}</strong>
+                    <small>
+                      {l.link
+                        ? "Accedi allo streaming"
+                        : "Streaming non disponibile"}
+                    </small>
+                  </>
+                </span>
+                <span class="arena-arrow">↗</span>
+              </>
+            </a>
+          ))
+        }
+      </div>{
+        programmaContentHtml && (
+          <div class="program-card">
+            <>
+              <h2>Programma e informazioni</h2>
+              <div class="program-content" set:html={prefixProgramLinks(programmaContentHtml)} />
+            </>
           </div>
+        )
+      }{
+        res.imageProgramma && (
+          <img
+            class="program-image"
+            src={sitePath(`/images/${res.imageProgramma}`)}
+            alt={`Programma ${res.title}`}
+            loading="lazy"
+          />
         )
       }
     </section>

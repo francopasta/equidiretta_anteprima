@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 
-const robotsTxt = `
+const robotsTxt = import.meta.env.PUBLIC_EQUIDIRETTA_PRODUCTION !== "true" ? "User-agent: *\nDisallow: /" : `
 User-agent: *
 Allow: /
 

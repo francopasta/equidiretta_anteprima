@@ -1,14 +1,12 @@
 ---
-import Image from "astro/components/Image.astro";
+import { sitePath } from "../lib/site-path";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-  <main class="container mx-auto">
-    <section class="flex flex-col items-center justify-center h-[60dvh]">
-      <div class="flex">
-        <span class="fancy text-8xl font-bold">ops, pagina non trovata</span>
-      </div>
-    </section>
+<Layout title="Pagina non trovata | Equidiretta.tv" description="La pagina richiesta non è disponibile.">
+  <main class="content-shell simple-page">
+    <h1>Pagina non trovata</h1>
+    <p>Puoi tornare alla pagina iniziale per scegliere un centro ippico.</p>
+    <a class="button button-gold" href={sitePath("/#centri")}>Vai ai centri ippici</a>
   </main>
 </Layout>

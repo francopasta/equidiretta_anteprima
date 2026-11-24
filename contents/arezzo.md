@@ -12,7 +12,7 @@
   </p>
 
    <div class="mt-3">
-    <a href="/programma-riviera.pdf" class="inline-block bg-custom-1 hover:bg-custom-2 text-white font-bold text-lg py-3 px-6 rounded-xl shadow-md transition px-3">
+    <a href="/programma-arezzo.pdf" class="inline-block bg-custom-1 hover:bg-custom-2 text-white font-bold text-lg py-3 px-6 rounded-xl shadow-md transition px-3">
       Scarica Programma Evento
     </a>
   </div>
@@ -46,7 +46,7 @@
   </p>
 
    <div class="mt-3">
-    <a href="/programma-riviera.pdf" class="inline-block bg-custom-1 hover:bg-custom-2 text-white font-bold text-lg py-3 px-6 rounded-xl shadow-md transition px-3">
+    <a href="/programma-arezzo.pdf" class="inline-block bg-custom-1 hover:bg-custom-2 text-white font-bold text-lg py-3 px-6 rounded-xl shadow-md transition px-3">
       Download Event Program
     </a>
   </div>

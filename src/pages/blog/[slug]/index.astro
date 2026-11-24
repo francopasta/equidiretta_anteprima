@@ -1,4 +1,5 @@
 ---
+import { sitePath } from "../../../lib/site-path";
 import Layout from "../../../layouts/Layout.astro";
 import configData from "../../../../config.json";
 
@@ -37,7 +38,7 @@ const posts = import.meta.glob<BlogPost>("../../../../blog/*.md", {
 const post = posts[`../../../../blog/${slug}.md`] as BlogPost | undefined;
 
 if (!post) {
-  return Astro.redirect("/404");
+  return Astro.redirect(sitePath("/404.html"));
 }
 
 const Content = (post.Content ?? post.default) as MarkdownContent;
@@ -60,14 +61,14 @@ const dateLabel =
   <main class="container mx-auto py-10">
     <article class="px-4 max-w-3xl mx-auto flex flex-col gap-6">
       <div>
-        <a class="link text-sm" href="/blog/">← Torna al blog</a>
+        <a class="link text-sm" href={sitePath("/blog/")}>← Torna al blog</a>
       </div>
       <div>
         <h1 class="mb-2 flex flex-wrap items-baseline gap-2">
           {frontmatter.title ?? "Senza titolo"}
           <a
             class="link text-sm"
-            href={`/blog/${slug}/`}
+            href={sitePath(`/blog/${slug}/`)}
             aria-label="Permalink a questo articolo"
           >
             Permalink

@@ -1,4 +1,5 @@
 ---
+import { sitePath } from "../../lib/site-path";
 import Layout from "../../layouts/Layout.astro";
 import configData from "../../../config.json";
 
@@ -88,7 +89,7 @@ const pageDescription = configData.description;
                     </small>
                   )}
                   <h3 class="mt-2">
-                    <a class="link" href={`/blog/${post.slug}/`}>
+                    <a class="link" href={sitePath(`/blog/${post.slug}/`)}>
                       {title}
                     </a>
                   </h3>
@@ -96,7 +97,7 @@ const pageDescription = configData.description;
                 {summary && <p class="text-gray/80">{summary}</p>}
                 <div>
                   <a
-                    href={`/blog/${post.slug}/`}
+                    href={sitePath(`/blog/${post.slug}/`)}
                     class="bg-custom-1 hover:bg-custom-2 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md"
                   >
                     Leggi l'articolo

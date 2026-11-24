@@ -1,73 +1,113 @@
 ---
+import { sitePath } from "../lib/site-path";
 import Layout from "../layouts/Layout.astro";
+import configData from "../../config.json";
 export const prerender = true;
-import configData from "./../../config.json";
-
+const venues = configData.groups;
 const pageTitle = `Live streaming eventi equestri in diretta | ${configData.title}`;
-const venuesList = configData.groups
-  .map((g) => `${g.title} (${g.location})`)
-  .join(", ");
-const pageDescription = `Live streaming eventi equestri in diretta dai migliori centri ippici italiani: ${venuesList}.`;
+const pageDescription = `Segui le gare di equitazione e scopri le arene in streaming dai centri ippici italiani: ${venues.map((g) => g.title).join(", ")}.`;
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <main class="container mx-auto py-12">
-    <section>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 max-w-7xl mx-auto">
-        {configData.groups.map((g) => (
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition-shadow duration-300">
-            <!-- Contenitore immagine/logo (mostra intero senza crop) -->
-            <a href={`/live/${g.slug}/`} class="block bg-gray-50 p-8">
-              <img
-                src={`/images/${g.image}`}
-                alt={`${g.title} - ${g.location}`}
-                class="w-full h-auto max-h-64 object-contain mx-auto"
-              />
-            </a>
-
-            <!-- Contenuto testo -->
-            <div class="p-6 flex flex-col items-center justify-between flex-1 text-center">
-              <div>
-                <!-- Titolo con location -->
-                <h3 class="text-2xl font-bold mb-6">
-                  <a href={`/live/${g.slug}/`} class="hover:text-custom-1 transition-colors">
-                    {g.title} - {g.location}
-                  </a>
-                </h3>
-              </div>
-
-              <!-- Pulsante arancione -->
-              <a
-                href={`/live/${g.slug}/`}
-                class="bg-custom-1 hover:bg-custom-2 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-md"
-              >
-                {configData.actions.vedi}
-              </a>
-            </div>
-          </div>
-        ))}
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="content-shell hero-content">
+        <span class="eyebrow hero-eyebrow"
+          ><span class="eyebrow-line"></span> IL TUO POSTO IN PRIMA FILA</span
+        >
+        <h1 id="hero-title">
+          Ogni salto.<br />Ogni emozione.<br /><em>In diretta.</em>
+        </h1>
+        <div class="gold-stroke"></div>
+        <p>
+          Vivi il meglio dell'equitazione, ovunque tu sia. Le emozioni dei campi
+          gara, sempre a portata di clic.
+        </p>
+        <div class="hero-buttons">
+          <a class="button button-gold" href="#dirette"
+            ><span aria-hidden="true">▶</span> Scopri le dirette</a
+          ><a class="button button-outline" href="#centri"
+            >⌖ &nbsp;Esplora i centri</a>
+        </div>
       </div>
     </section>
-    <section class="px-4 max-w-5xl mx-auto mb-10">
-      <h1 class="mb-4 text-3xl md:text-4xl font-bold">
-        Live streaming eventi equestri in diretta
-      </h1>
-      <p class="text-gray/80 max-w-3xl">
-        Equidiretta.tv trasmette gare di equitazione in diretta dai principali
-        centri ippici italiani. Segui le competizioni ovunque ti trovi con
-        streaming stabile e aggiornamenti costanti.
-      </p>
-      <div class="mt-6">
-        <h2 class="text-lg font-semibold mb-3">Centri e sedi in diretta</h2>
-        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          {configData.groups.map((g) => (
-            <li>
-              <a class="link" href={`/live/${g.slug}/`}>
-                {g.title} - {g.location}
-              </a>
-            </li>
-          ))}
-        </ul>
+    <section class="venues-section" id="dirette" aria-labelledby="venues-title">
+      <div class="content-shell">
+        <div class="section-heading">
+          <div>
+            <span class="small-rule"></span><p class="eyebrow">
+              IL MONDO EQUESTRE, SEMPRE CON TE
+            </p><h2 id="venues-title">Segui i tuoi centri preferiti</h2><p
+              class="section-subtitle"
+            >
+              Scegli il centro ippico e accedi alle sue arene in streaming.
+            </p>
+          </div><span class="venue-count">{venues.length} CENTRI IPPICI</span>
+        </div>
+        <div class="venue-grid" id="centri">
+          {
+            venues.map((g) => (
+              <article class="venue-card">
+                <>
+                  <a
+                    class="venue-card__photo"
+                    href={sitePath(`/live/${g.slug}/`)}
+                    aria-label={`Apri ${g.title}`}
+                  >
+                    <>
+                      <img
+                        src={sitePath(`/images/${g.image}`)}
+                        alt=""
+                        loading="lazy"
+                      />
+                      <span class="venue-card__pill">
+                        {g.links.length}{" "}
+                        {g.links.length === 1 ? "arena" : "arene"}
+                      </span>
+                    </>
+                  </a>
+                  <div class="venue-card__body">
+                    <>
+                      <h3>
+                        <a href={sitePath(`/live/${g.slug}/`)}>{g.title}</a>
+                      </h3>
+                      <p class="venue-location">
+                        <span aria-hidden="true">⌖</span> {g.location}
+                      </p>
+                      <a class="venue-card__button" href={sitePath(`/live/${g.slug}/`)}>
+                        <span aria-hidden="true">▶</span> Guarda {configData.actions.vedi}{" "}
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </>
+                  </div>
+                </>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+    <section class="benefits">
+      <div class="content-shell benefits-inner">
+        <div class="benefits-title">
+          <span class="small-rule"></span><h2>
+            Tutto il mondo equestre,<br />in un unico posto.
+          </h2><p>La passione per il cavallo non si ferma mai.</p>
+        </div><div class="benefit">
+          <span class="benefit-icon" aria-hidden="true">▦</span><h3>
+            Centri ippici
+          </h3><p>Trova la tua sede e scegli l'arena che vuoi seguire.</p>
+        </div><div class="benefit">
+          <span class="benefit-icon" aria-hidden="true">▱</span><h3>
+            Multi-arena
+          </h3><p>Accedi ai diversi campi gara di ogni evento.</p>
+        </div><div class="benefit">
+          <span class="benefit-icon" aria-hidden="true">▣</span><h3>
+            Streaming
+          </h3><p>Segui le gare da computer, tablet e smartphone.</p>
+        </div>
       </div>
     </section>
   </main>

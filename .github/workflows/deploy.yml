@@ -1,54 +1,60 @@
-name: Deploy pages
+name: Pubblica anteprima su GitHub Pages
 
 on:
   workflow_dispatch:
-  push:
-    branches: []
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: github-pages-preview
   cancel-in-progress: false
 
 jobs:
   build:
+    if: github.event.repository.fork && github.repository != 'equidiretta/web' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      pages: read
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
-
-      - name: Setup @antfu/ni
-        run: npm i -g @antfu/ni
-
-      - name: Install dependencies
-        run: nci
-
-      - name: Build
-        run: nr build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
+          node-version: 24
+      - run: npm install --global pnpm@11.0.9
+      - uses: actions/configure-pages@v5
+        id: pages
+      - name: Verifica il dominio di anteprima
+        run: |
+          case "$PAGES_ORIGIN" in
+            https://*.github.io) ;;
+            *) echo "L'anteprima richiede un indirizzo github.io."; exit 1 ;;
+          esac
+        env:
+          PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        env:
+          ASTRO_TELEMETRY_DISABLED: "1"
+          PAGES_ORIGIN: ${{ steps.pages.outputs.origin }}
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          PUBLIC_EQUIDIRETTA_PRODUCTION: "false"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
-    name: Deploy
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.publish.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/deploy-pages@v4
+        id: publish

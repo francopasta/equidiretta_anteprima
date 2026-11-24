@@ -1,74 +1,75 @@
 ---
+import { sitePath, prefixProgramLinks } from "../../../../lib/site-path";
 import Layout from "../../../../layouts/Layout.astro";
 import VideoPlayer from "../../../../components/VideoPlayer.astro";
-import configData from "./../../../../../config.json";
+import configData from "../../../../../config.json";
 import { marked } from "marked";
-
-const { slug, link } = Astro.params;
-
 export function getStaticPaths() {
-  return configData.groups.flatMap((g) => {
-    return g.links.flatMap((l) => {
-      return {
-        params: {
-          slug: g.slug,
-          link: l.slug,
-        },
-      };
-    });
-  });
+  return configData.groups.flatMap((g) =>
+    g.links.map((l) => ({ params: { slug: g.slug, link: l.slug } })),
+  );
 }
-
-const live = configData.groups.find((g) => g.slug === slug) ?? {
-  title: "not found",
-  slug: slug,
-  location: "",
-  links: [],
-  programma: "",
-};
-const data = live.links.find((l) => l.slug === link);
-const files = import.meta.glob("./../../../../../contents/*.md", {
-  as: "raw",
+const { slug, link } = Astro.params;
+const live = configData.groups.find((g) => g.slug === slug)!;
+const data = live.links.find((l) => l.slug === link)!;
+const files = import.meta.glob("../../../../../contents/*.md", {
+  query: "?raw",
+  import: "default",
   eager: true,
 });
-
-const programmaContent = files[`../../../../../contents/${live.programma}`];
-const programmaContentHtml = await marked.parse(programmaContent);
+const program = files[`../../../../../contents/${live.programma}`];
+const programmaContentHtml = program
+  ? await marked.parse(program as string)
+  : "";
 ---
 
 <Layout
-  title={`Live ${data?.title} - ${live.title} | ${configData.title}`}
-  description={`Live streaming ${data?.title} da ${live.title} a ${live.location}. Guarda la diretta e il programma su ${configData.title}.`}
+  title={`${data.title} - ${live.title} | ${configData.title}`}
+  description={`Streaming ${data.title} presso ${live.title}, ${live.location}.`}
+  ><main class="player-page">
+    <div class="content-shell">
+      <div class="player-header">
+        <a class="breadcrumb" href={sitePath(`/live/${live.slug}/`)}
+          >← Torna a {live.title}</a
+        ><p class="eyebrow">STREAMING · {live.location}</p><h1>
+          {data.title}
+        </h1><p>{live.title} · Scegli l'arena e segui la trasmissione.</p>
+      </div><div class="player-layout">
+        <div>
+          <div class="video-frame">
+            <VideoPlayer link={data.link || ""} />
+          </div><p class="stream-note">
+            La disponibilità della diretta dipende dagli orari e dalla
+            programmazione del centro ippico.
+          </p>
+        </div><aside class="arena-sidebar">
+          <h2>Le arene di {live.title}</h2><nav aria-label="Seleziona arena">
+            {
+              live.links.map((l) => (
+                <a
+                  class:list={[
+                    "arena-side-link",
+                    { "is-active": l.slug === data.slug },
+                  ]}
+                  href={sitePath(`/live/${live.slug}/${l.slug}/`)}
+                >
+                  <span>▶</span>
+                  {l.title}
+                </a>
+              ))
+            }
+          </nav>
+        </aside>
+      </div>{
+        programmaContentHtml && (
+          <div class="program-card">
+            <>
+              <h2>Programma e informazioni</h2>
+              <div class="program-content" set:html={prefixProgramLinks(programmaContentHtml)} />
+            </>
+          </div>
+        )
+      }
+    </div>
+  </main></Layout
 >
-  <main class="container mx-auto">
-    <section>
-      <h3><a href={`/live/${live.slug}/${data?.slug}`}>{data?.title}</a></h3>
-      <h4>
-        <a href={`/live/${live.slug}`}>Live {live.title}</a>
-      </h4>
-      <p class="text-gray/80 max-w-3xl">
-        Streaming live dell'arena {data?.title} presso {live.title} {live.location ? `(${live.location})` : ""}.
-      </p>
-      <VideoPlayer link={data?.link || ""} />
-      {live.links && live.links.length > 1 && (
-        <div class="mt-6">
-          <h5 class="mb-2">Altre arene in diretta</h5>
-          <ul class="flex flex-wrap gap-3">
-            {live.links
-              .filter((l) => l.slug !== data?.slug)
-              .map((l) => (
-                <li>
-                  <a class="link" href={`/live/${live.slug}/${l.slug}`}>
-                    {l.title}
-                  </a>
-                </li>
-              ))}
-          </ul>
-        </div>
-      )}
-      <div>
-        <div set:html={programmaContentHtml} />
-      </div>
-    </section>
-  </main>
-</Layout>
